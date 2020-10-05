@@ -30,7 +30,6 @@ public class DinnerTableMonitor implements DinnerTable {
             while (philosophersActions[id] != Actions.EATING) {
                 try {
                     this.philosophers[id].wait();
-                    System.out.println(String.format("The philosopher(%d) took the cutlery.", id));
                 } catch (InterruptedException e) {
                     System.out.println("InterruptedException caught");
                 }
@@ -50,6 +49,7 @@ public class DinnerTableMonitor implements DinnerTable {
         if (philosophersActions[id] == Actions.HUNGRY && philosophersActions[this.left(id)] != Actions.EATING &&
                 philosophersActions[this.right(id)] != Actions.EATING) {
             philosophersActions[id] = Actions.EATING;
+            System.out.println(String.format("The philosopher(%d) took the cutlery.", id));
             synchronized (philosophers[id]) {
                 philosophers[id].notify();
             }
